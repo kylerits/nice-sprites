@@ -34,7 +34,7 @@ const Home: NextPage = () => {
                 onClick={() => setShowColorPicker(!showColorPicker)}
                 aria-label="Current Color"
                 title="Current Color"
-              ><span className="inline-block w-8 h-8 rounded-md" style={{ backgroundColor: currentColor }}></span></button>
+              ><span className="inline-block w-8 h-8 rounded-md border border-white" style={{ backgroundColor: currentColor }}></span></button>
               { showColorPicker ? (
                 <SketchPicker 
                   className="absolute bottom-full right-[50%] z-10 transform translate-x-1/2"

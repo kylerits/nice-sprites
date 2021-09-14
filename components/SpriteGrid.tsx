@@ -39,11 +39,11 @@ const SpriteGrid = ({bitCount, currentColor}) => {
   }, [currentPixels])
   
   return (
-    <div className="sprite-grid-wrap relative max-w-[400px] mx-auto">
+    <div className="sprite-grid-wrap relative w-full max-w-[350px] lg:max-w-[500px] mx-auto">
       {/* Pseudo Grid */}
-      <div className="pseudo-grid absolute w-full h-full grid border-b border-dashed">
+      <div className="pseudo-grid absolute w-full h-full grid border-gray-300 border-b border-dashed">
         {Array.from(Array(bitCount).keys()).map(row => (
-          <div key={row} className="grid-row border-t border-dashed"
+          <div key={row} className="grid-row border-gray-300 border-t border-dashed"
             style={{ 
               gridColumn: `span ${bitCount}`,
               gridRowStart: `${row + 1}`,
@@ -51,9 +51,9 @@ const SpriteGrid = ({bitCount, currentColor}) => {
           ></div>
         ))}
       </div>
-      <div className="pseudo-grid absolute w-full h-full grid border-l border-dashed">
+      <div className="pseudo-grid absolute w-full h-full grid border-gray-300 border-l border-dashed">
         {Array.from(Array(bitCount).keys()).map(col => (
-          <div key={col} className="grid-col border-r border-dashed"
+          <div key={col} className="grid-col border-gray-300 border-r border-dashed"
             style={{ 
               gridRow: `span ${bitCount}`,
               gridColumnStart: `${col + 1}`,
@@ -87,9 +87,9 @@ const SpriteGrid = ({bitCount, currentColor}) => {
       </div>
       {currentPixels.length > 0 ? (
         <button
-          className="absolute bottom-full right-0 my-2"
+          className="absolute bottom-full right-0 my-2 text-red-500 text-xs uppercase tracking-widest hover:text-red-800 font-semibold italic duration-200"
           onClick={() => { clearColors() }}
-        >Clear All</button>
+        >Clear</button>
       ) : null}
     </div>
   );
