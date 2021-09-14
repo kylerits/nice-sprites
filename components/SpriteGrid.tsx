@@ -40,14 +40,35 @@ const SpriteGrid = ({bitCount, currentColor}) => {
   
   return (
     <div className="sprite-grid-wrap relative max-w-[400px] mx-auto">
+      {/* Pseudo Grid */}
+      <div className="pseudo-grid absolute w-full h-full grid border-b border-dashed">
+        {Array.from(Array(bitCount).keys()).map(row => (
+          <div key={row} className="grid-row border-t border-dashed"
+            style={{ 
+              gridColumn: `span ${bitCount}`,
+              gridRowStart: `${row + 1}`,
+            }}
+          ></div>
+        ))}
+      </div>
+      <div className="pseudo-grid absolute w-full h-full grid border-l border-dashed">
+        {Array.from(Array(bitCount).keys()).map(col => (
+          <div key={col} className="grid-col border-r border-dashed"
+            style={{ 
+              gridRow: `span ${bitCount}`,
+              gridColumnStart: `${col + 1}`,
+            }}
+          ></div>
+        ))}
+      </div>
+      {/* Grid Proper */}
       <div 
-        className="sprite-grid relative grid max-w-full border border-dashed"
+        className="sprite-grid relative grid max-w-full"
         style={{
           gridTemplateColumns: `repeat(${bitCount}, minmax(0, 1fr))`,
           gridTemplateRows: `repeat(${bitCount}, minmax(0, 1fr))`,
         }}
       >
-
         {Array.from(Array(bitCount).keys()).map(row => {
           return Array.from(Array(bitCount).keys()).map(col => {
             return (
