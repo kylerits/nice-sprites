@@ -1,8 +1,8 @@
 import { useRef, useState, useEffect } from "react";
 import Pixel from "./Pixel";
 
-const SpriteGrid = ({bitCount, currentColor}) => {
-  const [currentPixels, setCurrentPixels] = useState([]);
+const SpriteGrid = ({bitCount, currentColor, currentPixels, setCurrentPixels}) => {
+  // const [currentPixels, setCurrentPixels] = useState([]);
   const pixels = useRef(new Array());
 
   
@@ -34,12 +34,12 @@ const SpriteGrid = ({bitCount, currentColor}) => {
     setCurrentPixels([]);
   }
 
-  useEffect(() => {
-    console.log('Current Pixels: ', currentPixels)
-  }, [currentPixels])
+  // useEffect(() => {
+  //   console.log('Current Pixels: ', currentPixels)
+  // }, [currentPixels])
   
   return (
-    <div className="sprite-grid-wrap relative w-full max-w-[350px] lg:max-w-[500px] mx-auto">
+    <div className="sprite-grid-wrap relative">
       {/* Pseudo Grid */}
       <div className="pseudo-grid absolute w-full h-full grid border-gray-300 border-b border-dashed">
         {Array.from(Array(bitCount).keys()).map(row => (

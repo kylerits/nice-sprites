@@ -5,10 +5,12 @@ import Head from 'next/head'
 // Components
 import {SketchPicker} from 'react-color'
 import SpriteGrid from '../components/SpriteGrid'
+import Pallet from '../components/Pallet'
 
 const Home: NextPage = () => {
   const [currentColor, setCurrentColor] = useState('#000000');
   const [showColorPicker, setShowColorPicker] = useState(false);
+  const [currentPixels, setCurrentPixels] = useState([]);
   const [bitCount, setBitCount] = useState(16);
 
   return (
@@ -21,10 +23,22 @@ const Home: NextPage = () => {
         <div className="w-full max-w-5xl">
 
           {/* Sprite Grid */}
-          <SpriteGrid
-            currentColor={currentColor}
-            bitCount={bitCount}
-          />
+          <div className="relative w-full max-w-[350px] lg:max-w-[500px] mx-auto">
+            <SpriteGrid
+              currentColor={currentColor}
+              bitCount={bitCount}
+              currentPixels={currentPixels}
+              setCurrentPixels={setCurrentPixels}
+            />
+            <div className="absolute top-0 left-full px-8 h-full">
+              <Pallet 
+                currentColor={currentColor}
+                setCurrentColor={setCurrentColor}
+                currentPixels={currentPixels}
+                setCurrentPixels={setCurrentPixels}
+              />
+            </div>
+          </div>
 
           {/* Color Picker */}
           <div className="relative text-center py-4">
