@@ -29,7 +29,9 @@ const Pallet = ({currentColor, setCurrentColor, currentPixels, setCurrentPixels}
   }, [currentPixels]);
 
   return (
-    <div className="relative">
+    <div className="relative h-full">
+
+      {/* Title and Actions */}
       <div className="absolute bottom-full left-0 my-2">
         <div className="flex">
           <h3 className="text-xs uppercase italic font-semibold text-gray-500 tracking-widest mr-6">Pallet</h3>
@@ -39,7 +41,9 @@ const Pallet = ({currentColor, setCurrentColor, currentPixels, setCurrentPixels}
         >Clear</button>
         </div>
       </div>
-      <div className="pallet relative flex flex-col flex-wrap max-h-full">
+
+      {/* Color List */}
+      <div className="pallet relative flex flex-col flex-wrap h-full bg-gray-50 rounded-lg py-2 px-3 min-w-[100px] max-w-[200px] overflow-x-scroll">
         {colorArr.map(color => (
           <div 
             key={color} 
