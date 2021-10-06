@@ -31,16 +31,7 @@ const Pallet = ({currentColor, setCurrentColor, currentPixels, setCurrentPixels}
   return (
     <div className="relative h-full">
 
-      {/* Title and Actions */}
-      <div className="absolute bottom-full left-0 my-2">
-        <div className="flex">
-          <h3 className="text-xs uppercase italic font-semibold text-gray-500 tracking-widest mr-6">Pallet</h3>
-          <button
-          className="text-red-500 text-xs uppercase tracking-widest hover:text-red-800 font-semibold italic duration-200"
-          onClick={() => { clearPallet() }}
-        >Clear</button>
-        </div>
-      </div>
+      
 
       {/* Color List */}
       <div className="pallet relative flex flex-col flex-wrap h-full bg-gray-50 rounded-lg py-2 px-3 min-w-[100px] max-w-[200px] overflow-x-scroll">
@@ -66,6 +57,18 @@ const Pallet = ({currentColor, setCurrentColor, currentPixels, setCurrentPixels}
             </button>
           </div>
         ))}
+        {/* Title and Actions */}
+        {colorArr.length > 0 ? (
+          <div className="relative my-2">
+            <div className="flex">
+              {/* <h3 className="text-xs uppercase italic font-semibold text-gray-500 tracking-widest mr-6">Pallet</h3> */}
+              <button
+              className="text-red-500 text-xs uppercase tracking-widest hover:text-red-800 font-semibold italic duration-200 opacity-50 hover:opacity-100"
+              onClick={() => { clearPallet() }}
+            >Clear</button>
+            </div>
+          </div>
+        ) : null }
       </div>
     </div>
   )
