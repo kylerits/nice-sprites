@@ -13,6 +13,13 @@ const Pixel = forwardRef(({ x, y, currentColor, addPixel, removePixel }, ref) =>
     }
   };
 
+  const handleDrag = (e) => {
+    if(e.buttons > 0 && color !== currentColor) {
+      setColor(currentColor);
+      addPixel(x, y);
+    }
+  }
+
   useImperativeHandle(ref, () => ({
     handleClear() {
       setColor('');
@@ -24,6 +31,7 @@ const Pixel = forwardRef(({ x, y, currentColor, addPixel, removePixel }, ref) =>
       className="pixel w-full h-0 pt-[100%] col-span-1"
       style={{ backgroundColor: color && color.length > 0 ? color : 'transparent' }}
       onClick={handleClick}
+      onPointerEnter={(e) => {handleDrag(e)}}
     />
   );
 });

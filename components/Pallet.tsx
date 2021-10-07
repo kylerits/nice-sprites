@@ -7,7 +7,7 @@ const Pallet = ({currentColor, setCurrentColor, currentPixels, setCurrentPixels}
     const currentColorArr = [...colorArr];
     const uniqueColors = [...new Set(currentPixels.map(pixel => pixel.color))];
     uniqueColors.forEach(color =>{
-      if (!currentColorArr.includes(color)) {
+      if (!currentColorArr.includes(color) && color.length > 0) {
         currentColorArr.push(color);
       }
     });
@@ -29,16 +29,25 @@ const Pallet = ({currentColor, setCurrentColor, currentPixels, setCurrentPixels}
   }, [currentPixels]);
 
   return (
-    <div className="relative h-full">
-
-      
-
-      {/* Color List */}
-      <div className="pallet relative flex flex-col flex-wrap h-full bg-gray-50 rounded-lg py-2 px-3 min-w-[100px] max-w-[200px] overflow-x-scroll">
+    <div className="pallet relative max-h-full overflow-scroll bg-gray-50 rounded-lg py-2 px-3 min-w-[100px]">
+      <div className="max-h-full">
+        {/* Title and Actions */}
+        {colorArr.length > 0 ? (
+          <div className="relative my-2">
+            <div className="flex">
+              {/* <h3 className="text-xs uppercase italic font-semibold text-gray-500 tracking-widest mr-6">Pallet</h3> */}
+              <button
+              className="text-red-500 text-xs uppercase tracking-widest hover:text-red-800 font-semibold italic duration-200 opacity-50 hover:opacity-100"
+              onClick={() => { clearPallet() }}
+            >Clear</button>
+            </div>
+          </div>
+        ) : null }
+        {/* Colors Array */}
         {colorArr.map(color => (
           <div 
             key={color} 
-            className="relative mb-3 mr-5 flex items-center"
+            className="relative mb-3 flex items-center"
           >
             <button
               className="inline-flex items-center p-1 border-2 border-gray-100 shadow-md rounded-md uppercase text-gray-500 font-semibold tracking-wider text-sm hover:bg-gray-100 duration-200"
@@ -57,18 +66,6 @@ const Pallet = ({currentColor, setCurrentColor, currentPixels, setCurrentPixels}
             </button>
           </div>
         ))}
-        {/* Title and Actions */}
-        {colorArr.length > 0 ? (
-          <div className="relative my-2">
-            <div className="flex">
-              {/* <h3 className="text-xs uppercase italic font-semibold text-gray-500 tracking-widest mr-6">Pallet</h3> */}
-              <button
-              className="text-red-500 text-xs uppercase tracking-widest hover:text-red-800 font-semibold italic duration-200 opacity-50 hover:opacity-100"
-              onClick={() => { clearPallet() }}
-            >Clear</button>
-            </div>
-          </div>
-        ) : null }
       </div>
     </div>
   )

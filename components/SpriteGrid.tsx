@@ -25,7 +25,7 @@ const SpriteGrid = ({bitCount, currentColor, currentPixels, setCurrentPixels}) =
   }
 
   const clearColors = () => {
-    console.log(`Clearing all colors`);
+    // console.log(`Clearing all colors`);
     pixels.current.map(pixel => {
       if(pixel) {
         pixel.handleClear();
