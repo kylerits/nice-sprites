@@ -43,7 +43,7 @@ const Home: NextPage = () => {
             />
 
             {/* Grid Actions Component */}
-            <GridActions currentPixels={currentPixels} />
+            <GridActions currentPixels={currentPixels} bitCount={bitCount} />
 
             {/* Color Actions Column */}
             <div className="absolute top-0 left-full px-8 h-full flex flex-col">
