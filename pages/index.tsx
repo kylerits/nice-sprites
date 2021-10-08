@@ -1,3 +1,4 @@
+import {motion} from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 import type { NextPage } from 'next'
 import Head from 'next/head'
@@ -32,7 +33,7 @@ const Home: NextPage = () => {
         <div className="w-full max-w-5xl">
 
           {/* Sprite Grid */}
-          <div className="relative w-full max-w-[350px] lg:max-w-[500px] mx-auto">
+          <div className="relative w-full max-w-[350px] lg:max-w-[500px] xl:max-w-[600px] mx-auto">
 
             {/* Bitcount Actions */}
             <div className="absolute top-0 right-full px-8">
@@ -69,12 +70,19 @@ const Home: NextPage = () => {
 
                     {/* Color Picker */}
                     { showColorPicker ? (
-                      <SketchPicker 
-                        className="absolute top-0 right-full z-10 mx-4"
-                        disableAlpha={true}
-                        color={currentColor}
-                        onChangeComplete={(color) => setCurrentColor(color.hex)}
-                      />
+                      <motion.div
+                        style={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ duration: 0.3, ease: "easeInOut", delay: 0.2 }}
+                      >
+                        <SketchPicker 
+                          className="absolute top-0 right-full z-10 mx-4"
+                          disableAlpha={true}
+                          color={currentColor}
+                          onChangeComplete={(color) => setCurrentColor(color.hex)}
+                        />
+                      </motion.div>
                     ) : null}
 
                 </div>
@@ -94,6 +102,9 @@ const Home: NextPage = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 py-8">
+          <p className="text-sm text-center text-gray-500 font-semibold tracking-wider">&copy; {new Date().getFullYear()} <a href="https://github.com/kylerits" target="_blank" rel="noreferrer" className="hover:text-blue-500">kylerits</a></p>
         </div>
       </section>
     </>
