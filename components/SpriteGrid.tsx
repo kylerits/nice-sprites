@@ -1,7 +1,9 @@
+import {motion} from 'framer-motion';
 import { useRef, useState, useEffect } from "react";
 import Pixel from "./Pixel";
+import GridActions from './GridActions';
 
-const SpriteGrid = ({bitCount, currentColor, currentPixels, setCurrentPixels}) => {
+const SpriteGrid = ({bitCount, currentColor, currentPixels, setCurrentPixels, in: inProp}) => {
   // const [currentPixels, setCurrentPixels] = useState([]);
   const pixels = useRef(new Array());
 
@@ -39,59 +41,68 @@ const SpriteGrid = ({bitCount, currentColor, currentPixels, setCurrentPixels}) =
   // }, [currentPixels])
   
   return (
-    <div className="sprite-grid-wrap relative">
-      {/* Pseudo Grid */}
-      <div className="pseudo-grid absolute w-full h-full grid border-gray-300 border-b border-dashed">
-        {Array.from(Array(bitCount).keys()).map(row => (
-          <div key={row} className="grid-row border-gray-300 border-t border-dashed"
-            style={{ 
-              gridColumn: `span ${bitCount}`,
-              gridRowStart: `${row + 1}`,
-            }}
-          ></div>
-        ))}
+    <>
+      <div className="sprite-grid-wrap relative">
+        {/* Pseudo Grid */}
+        <div className="pseudo-grid absolute w-full h-full grid border-gray-300 border-b border-dashed">
+          {Array.from(Array(bitCount).keys()).map(row => (
+            <div key={row} className="grid-row border-gray-300 border-t border-dashed"
+              style={{ 
+                gridColumn: `span ${bitCount}`,
+                gridRowStart: `${row + 1}`,
+              }}
+            ></div>
+          ))}
+        </div>
+        <div className="pseudo-grid absolute w-full h-full grid border-gray-300 border-l border-dashed">
+          {Array.from(Array(bitCount).keys()).map(col => (
+            <div key={col} className="grid-col border-gray-300 border-r border-dashed"
+              style={{ 
+                gridRow: `span ${bitCount}`,
+                gridColumnStart: `${col + 1}`,
+              }}
+            ></div>
+          ))}
+        </div>
+        {/* Grid Proper */}
+        <div 
+          className="sprite-grid relative grid max-w-full"
+          style={{
+            gridTemplateColumns: `repeat(${bitCount}, minmax(0, 1fr))`,
+            gridTemplateRows: `repeat(${bitCount}, minmax(0, 1fr))`,
+          }}
+        >
+          {Array.from(Array(bitCount).keys()).map(row => {
+            return Array.from(Array(bitCount).keys()).map(col => {
+              return (
+                <Pixel
+                  ref={(element) => pixels.current.push(element)}
+                  key={`${row}-${col}`}
+                  currentColor={currentColor}
+                  x={col}
+                  y={row}
+                  addPixel={addPixel}
+                  removePixel={removePixel}
+                />
+              )
+            })
+          })}
+        </div>
       </div>
-      <div className="pseudo-grid absolute w-full h-full grid border-gray-300 border-l border-dashed">
-        {Array.from(Array(bitCount).keys()).map(col => (
-          <div key={col} className="grid-col border-gray-300 border-r border-dashed"
-            style={{ 
-              gridRow: `span ${bitCount}`,
-              gridColumnStart: `${col + 1}`,
-            }}
-          ></div>
-        ))}
-      </div>
-      {/* Grid Proper */}
-      <div 
-        className="sprite-grid relative grid max-w-full"
-        style={{
-          gridTemplateColumns: `repeat(${bitCount}, minmax(0, 1fr))`,
-          gridTemplateRows: `repeat(${bitCount}, minmax(0, 1fr))`,
-        }}
-      >
-        {Array.from(Array(bitCount).keys()).map(row => {
-          return Array.from(Array(bitCount).keys()).map(col => {
-            return (
-              <Pixel
-                ref={(element) => pixels.current.push(element)}
-                key={`${row}-${col}`}
-                currentColor={currentColor}
-                x={col}
-                y={row}
-                addPixel={addPixel}
-                removePixel={removePixel}
-              />
-            )
-          })
-        })}
-      </div>
+      {/* Grid Actions Component */}
       {currentPixels.length > 0 ? (
-        <button
-          className="absolute bottom-full right-0 my-2 text-red-500 text-xs uppercase tracking-widest hover:text-red-800 font-semibold italic duration-200"
-          onClick={() => { clearColors() }}
-        >Clear</button>
+        <motion.div
+          style={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 10 }}
+          transition={{ duration: 0.2, ease: "easeInOut" }}
+        >
+          <div className="absolute top-full left-0">
+            <GridActions currentPixels={currentPixels} bitCount={bitCount} clearColors={clearColors} />
+          </div>
+        </motion.div>
       ) : null}
-    </div>
+    </>
   );
 }
 

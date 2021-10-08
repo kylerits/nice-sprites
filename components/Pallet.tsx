@@ -33,11 +33,11 @@ const Pallet = ({currentColor, setCurrentColor, currentPixels, setCurrentPixels}
       <div className="max-h-full">
         {/* Title and Actions */}
         {colorArr.length > 0 ? (
-          <div className="relative my-2">
-            <div className="flex">
+          <div className="relative pb-1 mb-3 border-b border-red-100 text-center">
+            <div className="block">
               {/* <h3 className="text-xs uppercase italic font-semibold text-gray-500 tracking-widest mr-6">Pallet</h3> */}
               <button
-              className="text-red-500 text-xs uppercase tracking-widest hover:text-red-800 font-semibold italic duration-200 opacity-50 hover:opacity-100"
+              className="text-red-500 text-xs uppercase tracking-widest font-semibold italic duration-200 opacity-50 hover:opacity-100"
               onClick={() => { clearPallet() }}
             >Clear</button>
             </div>
@@ -50,7 +50,7 @@ const Pallet = ({currentColor, setCurrentColor, currentPixels, setCurrentPixels}
             className="relative mb-3 flex items-center"
           >
             <button
-              className="inline-flex items-center p-1 border-2 border-gray-100 shadow-md rounded-md uppercase text-gray-500 font-semibold tracking-wider text-sm hover:bg-gray-100 duration-200"
+              className="inline-flex items-center p-1 border-2 border-gray-100 hover:border-blue-100 shadow-md rounded-md uppercase text-gray-500 font-semibold tracking-wider text-sm hover:bg-gray-100 duration-200"
               onClick={() => setCurrentColor(color)}
               title={color}
             >

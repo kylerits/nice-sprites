@@ -7,7 +7,7 @@ import ClickAwayListener from 'react-click-away-listener';
 import {SketchPicker} from 'react-color'
 import SpriteGrid from '../components/SpriteGrid'
 import Pallet from '../components/Pallet'
-import GridActions from '../components/GridActions';
+import BitActions from '../components/BitActions'
 
 const Home: NextPage = () => {
   const [currentColor, setCurrentColor] = useState('#000000');
@@ -34,6 +34,11 @@ const Home: NextPage = () => {
           {/* Sprite Grid */}
           <div className="relative w-full max-w-[350px] lg:max-w-[500px] mx-auto">
 
+            {/* Bitcount Actions */}
+            <div className="absolute top-0 right-full px-8">
+              <BitActions bitCount={bitCount} setBitCount={setBitCount} />
+            </div>
+
             {/* Grid Component */}
             <SpriteGrid
               currentColor={currentColor}
@@ -41,9 +46,6 @@ const Home: NextPage = () => {
               currentPixels={currentPixels}
               setCurrentPixels={setCurrentPixels}
             />
-
-            {/* Grid Actions Component */}
-            <GridActions currentPixels={currentPixels} bitCount={bitCount} />
 
             {/* Color Actions Column */}
             <div className="absolute top-0 left-full px-8 h-full flex flex-col">
@@ -53,7 +55,7 @@ const Home: NextPage = () => {
                     {/* Toggle Color Picker Button */}
                     <button 
                       id="colorButton"
-                      className={currentColor.length > 0 ? "inline-flex w-[100px] text-center items-center flex-wrap p-2 border-2 border-green-100 shadow-md rounded-md uppercase text-gray-500 font-semibold tracking-wider text-sm hover:bg-gray-100 duration-200" : "inline-flex w-[100px] text-center items-center flex-wrap p-2 border-2 border-gray-100 shadow-md rounded-md uppercase text-gray-500 font-semibold tracking-wider text-sm hover:bg-gray-100 duration-200"}
+                      className={currentColor.length > 0 ? "inline-flex w-[100px] text-center items-center flex-wrap p-2 border-2 border-blue-100 shadow-md rounded-md uppercase text-gray-500 font-semibold tracking-wider text-sm hover:bg-gray-100 duration-200" : "inline-flex w-[100px] text-center items-center flex-wrap p-2 border-2 border-gray-100 shadow-md rounded-md uppercase text-gray-500 font-semibold tracking-wider text-sm hover:bg-gray-100 duration-200"}
                       onClick={() => setShowColorPicker(!showColorPicker)}
                       aria-label="Current Color"
                       title="Current Color"
@@ -61,7 +63,7 @@ const Home: NextPage = () => {
 
                     <button
                       id="eraserButton"
-                      className={currentColor.length == 0 ? "inline-block text-xs w-[100px] text-center items-center flex-wrap p-2 border-2 border-green-100 shadow-md rounded-md uppercase text-gray-500 font-semibold tracking-wider hover:bg-gray-100 duration-200 mt-3" : "inline-block text-xs w-[100px] text-center items-center flex-wrap p-2 border-2 border-gray-100 shadow-md rounded-md uppercase text-gray-500 font-semibold tracking-wider hover:bg-gray-100 duration-200 mt-3"}
+                      className={currentColor.length == 0 ? "inline-block text-xs w-[100px] text-center items-center flex-wrap p-2 border-2 border-blue-100 shadow-md rounded-md uppercase text-gray-500 font-semibold tracking-wider hover:bg-gray-100 duration-200 mt-3" : "inline-block text-xs w-[100px] text-center items-center flex-wrap p-2 border-2 border-gray-100 shadow-md rounded-md uppercase text-gray-500 font-semibold tracking-wider hover:bg-gray-100 duration-200 mt-3"}
                       onClick={() => setCurrentColor('')}
                     >Eraser</button>
 
