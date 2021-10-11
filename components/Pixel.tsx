@@ -7,10 +7,9 @@ interface Refs {
   currentColor: string;
   addPixel: (x: number, y: number) => void;
   removePixel: (x: number, y: number) => void;
-  curref: any;
 }
 
-const Pixel: FC<Refs> = forwardRef(({ x, y, currentColor, addPixel, removePixel, curref }, ref) => {
+const Pixel: FC<Refs> = forwardRef(({ x, y, currentColor, addPixel, removePixel }, ref) => {
   const [color, setColor] = useState('');
 
   const handleClick = () => {
@@ -38,7 +37,6 @@ const Pixel: FC<Refs> = forwardRef(({ x, y, currentColor, addPixel, removePixel,
 
   return (
     <div
-      ref={curref}
       className="pixel w-full h-0 pt-[100%] col-span-1"
       style={{ backgroundColor: color && color.length > 0 ? color : 'transparent' }}
       onClick={handleClick}

@@ -29,7 +29,7 @@ const Home: NextPage = () => {
         <title>Nice Sprites</title>
       </Head>
       {/* Layout */}
-      <section className="relative w-screen min-h-screen flex items-center justify-center">
+      <section className="relative w-screen min-h-screen flex items-center justify-center flex-wrap">
         <div className="w-full max-w-5xl">
 
           {/* Sprite Grid */}
@@ -104,8 +104,9 @@ const Home: NextPage = () => {
             </div>
           </div>
         </div>
-        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 py-8">
-          <p className="text-sm text-center text-gray-500 font-semibold tracking-wider">&copy; {new Date().getFullYear()} <a href="https://github.com/kylerits" target="_blank" rel="noreferrer" className="hover:text-blue-500">kylerits</a></p>
+        <div className="relative w-full">
+
+          <p className="text-xs text-center text-gray-500 font-semibold tracking-wider">&copy; {new Date().getFullYear()} <a href="https://github.com/kylerits" target="_blank" rel="noreferrer" className="hover:text-blue-500">kylerits</a></p>
         </div>
       </section>
     </>

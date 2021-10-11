@@ -84,7 +84,8 @@ const SpriteGrid: FC<Props> = ({bitCount, currentColor, currentPixels, setCurren
             return Array.from(Array(bitCount).keys()).map(col => {
               return (
                 <Pixel
-                  curref={(element: any) => pixels.current.push(element)}
+                  //@ts-ignore
+                  ref={(element: any) => pixels.current.push(element)}
                   key={`${row}-${col}`}
                   currentColor={currentColor}
                   x={col}
