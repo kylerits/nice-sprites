@@ -1,7 +1,14 @@
+import { FC } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css'
 import {uniqueNamesGenerator, Config, adjectives, colors, animals} from 'unique-names-generator'
+
+interface Props {
+  currentPixels: any[];
+  bitCount: number;
+  clearColors: () => void;
+}
 
 const customConfig: Config = {
   dictionaries: [adjectives, colors, animals],
@@ -9,7 +16,7 @@ const customConfig: Config = {
   length: 2,
 }
 
-const GridActions = ({ currentPixels, bitCount, clearColors }) => {
+const GridActions: FC<Props> = ({ currentPixels, bitCount, clearColors }) => {
   const generateSvgString = () => {
     const multiplyer = 10
     const width = bitCount * multiplyer
@@ -28,7 +35,7 @@ const GridActions = ({ currentPixels, bitCount, clearColors }) => {
   }
 
   const downloadSvg = () => {
-    const svgString = generateSvgString(currentPixels)
+    const svgString = generateSvgString()
     const svgBlob = new Blob([svgString], { type: "image/svg+xml" });
     const svgUrl = URL.createObjectURL(svgBlob);
     const downloadLink = document.createElement('a');
@@ -41,7 +48,7 @@ const GridActions = ({ currentPixels, bitCount, clearColors }) => {
   }
 
   const copySvg = () => {
-    const svgString = generateSvgString(currentPixels)
+    const svgString = generateSvgString()
     const textArea = document.createElement('textarea');
     textArea.value = svgString;
     document.body.appendChild(textArea);

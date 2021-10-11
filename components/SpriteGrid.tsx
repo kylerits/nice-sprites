@@ -1,15 +1,23 @@
+import { FC } from 'react';
 import {motion} from 'framer-motion';
 import { useRef, useState, useEffect } from "react";
 import Pixel from "./Pixel";
 import GridActions from './GridActions';
 
-const SpriteGrid = ({bitCount, currentColor, currentPixels, setCurrentPixels, in: inProp}) => {
+interface Props {
+  bitCount: number;
+  currentColor: string;
+  currentPixels: string[];
+  setCurrentPixels: (pixels: string[]) => void;
+}
+
+const SpriteGrid: FC<Props> = ({bitCount, currentColor, currentPixels, setCurrentPixels}) => {
   // const [currentPixels, setCurrentPixels] = useState([]);
-  const pixels = useRef(new Array());
+  const pixels = useRef<any[]>(new Array());
 
   
-  const addPixel = (x, y) => {
-    const newPixels = [...currentPixels]
+  const addPixel = (x: number, y: number) => {
+    const newPixels: any[] = [...currentPixels]
     newPixels.push({
       key: `${x}-${y}`,
       color: currentColor,
@@ -19,9 +27,9 @@ const SpriteGrid = ({bitCount, currentColor, currentPixels, setCurrentPixels, in
     setCurrentPixels(newPixels);
   }
 
-  const removePixel = (x, y) => {
+  const removePixel = (x: number, y: number) => {
     const newPixels = [...currentPixels];
-    const index = newPixels.findIndex(pixel => pixel.key === `${x}-${y}`);
+    const index = newPixels.findIndex((pixel: any) => pixel.key === `${x}-${y}`);
     newPixels.splice(index, 1);
     setCurrentPixels(newPixels);
   }
@@ -76,7 +84,7 @@ const SpriteGrid = ({bitCount, currentColor, currentPixels, setCurrentPixels, in
             return Array.from(Array(bitCount).keys()).map(col => {
               return (
                 <Pixel
-                  ref={(element) => pixels.current.push(element)}
+                  curref={(element: any) => pixels.current.push(element)}
                   key={`${row}-${col}`}
                   currentColor={currentColor}
                   x={col}

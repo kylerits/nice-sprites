@@ -5,7 +5,7 @@ import Head from 'next/head'
 
 // Components
 import ClickAwayListener from 'react-click-away-listener';
-import {SketchPicker} from 'react-color'
+import {SketchPicker} from 'react-color' //@ts-ignore
 import SpriteGrid from '../components/SpriteGrid'
 import Pallet from '../components/Pallet'
 import BitActions from '../components/BitActions'
@@ -13,14 +13,14 @@ import BitActions from '../components/BitActions'
 const Home: NextPage = () => {
   const [currentColor, setCurrentColor] = useState('#000000');
   const [showColorPicker, setShowColorPicker] = useState(false);
-  const [currentPixels, setCurrentPixels] = useState([]);
+  const [currentPixels, setCurrentPixels] = useState<any[]>([]);
   const [bitCount, setBitCount] = useState(16);
   const [buttonWrapHeight, setButtonWrapHeight] = useState(0);
 
-  const buttonWrapRef = useRef(null);
+  const buttonWrapRef:any = useRef(null);
 
   useEffect(() => {
-    setButtonWrapHeight(buttonWrapRef.current.clientHeight);
+    setButtonWrapHeight(buttonWrapRef?.current?.clientHeight);
   }, []);
 
   return (
@@ -89,6 +89,7 @@ const Home: NextPage = () => {
               </ClickAwayListener>
               <div className="relative max-h-full"
                 style={{ 
+                  //@ts-ignore
                   "--color-button-height": buttonWrapHeight + "px",
                   height: "calc(100% - var(--color-button-height))",
                 }}

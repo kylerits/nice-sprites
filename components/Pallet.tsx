@@ -1,12 +1,24 @@
+import { FC } from "react";
 import { useEffect, useState } from "react";
 
-const Pallet = ({currentColor, setCurrentColor, currentPixels, setCurrentPixels}) => {
-  const [colorArr, setColorArr] = useState([]);
+interface Props {
+  currentColor: string;
+  setCurrentColor: (color: string) => void;
+  currentPixels: string[];
+  setCurrentPixels: (pixels: string[]) => void;
+}
+
+const Pallet: FC<Props> = ({currentColor, setCurrentColor, currentPixels, setCurrentPixels}) => {
+
+  interface Provider {
+    color: string;
+  }
+  const [colorArr, setColorArr] = useState<Provider[]>([]);
 
   const addColors = () => {
-    const currentColorArr = [...colorArr];
-    const uniqueColors = [...new Set(currentPixels.map(pixel => pixel.color))];
-    uniqueColors.forEach(color =>{
+    const currentColorArr: any[] = [...colorArr];
+    const uniqueColors = [...new Set<any>(currentPixels.map((pixel: any) => pixel.color))];
+    uniqueColors.forEach((color: any) =>{
       if (!currentColorArr.includes(color) && color.length > 0) {
         currentColorArr.push(color);
       }
@@ -14,8 +26,8 @@ const Pallet = ({currentColor, setCurrentColor, currentPixels, setCurrentPixels}
     setColorArr(currentColorArr);
   }
 
-  const removeColor = (color) => {
-    const currentColorArr = [...colorArr];
+  const removeColor = (color: any) => {
+    const currentColorArr: any[] = [...colorArr];
     currentColorArr.splice(currentColorArr.indexOf(color), 1);
     setColorArr(currentColorArr);
   }
@@ -44,7 +56,7 @@ const Pallet = ({currentColor, setCurrentColor, currentPixels, setCurrentPixels}
           </div>
         ) : null }
         {/* Colors Array */}
-        {colorArr.map(color => (
+        {colorArr.map((color: any) => (
           <div 
             key={color} 
             className="relative mb-3 flex items-center"

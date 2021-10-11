@@ -1,6 +1,16 @@
+import { FC } from "react";
 import { useState, forwardRef, useImperativeHandle } from "react";
 
-const Pixel = forwardRef(({ x, y, currentColor, addPixel, removePixel }, ref) => {
+interface Refs {
+  x: number;
+  y: number;
+  currentColor: string;
+  addPixel: (x: number, y: number) => void;
+  removePixel: (x: number, y: number) => void;
+  curref: any;
+}
+
+const Pixel: FC<Refs> = forwardRef(({ x, y, currentColor, addPixel, removePixel, curref }, ref) => {
   const [color, setColor] = useState('');
 
   const handleClick = () => {
@@ -13,7 +23,7 @@ const Pixel = forwardRef(({ x, y, currentColor, addPixel, removePixel }, ref) =>
     }
   };
 
-  const handleDrag = (e) => {
+  const handleDrag = (e: any) => {
     if(e.buttons > 0 && color !== currentColor) {
       setColor(currentColor);
       addPixel(x, y);
@@ -28,6 +38,7 @@ const Pixel = forwardRef(({ x, y, currentColor, addPixel, removePixel }, ref) =>
 
   return (
     <div
+      ref={curref}
       className="pixel w-full h-0 pt-[100%] col-span-1"
       style={{ backgroundColor: color && color.length > 0 ? color : 'transparent' }}
       onClick={handleClick}

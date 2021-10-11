@@ -1,4 +1,11 @@
-const BitActions = ({bitCount, setBitCount}) => {
+import { FC } from "react";
+
+interface Props {
+  bitCount: number;
+  setBitCount: (bitCount: number) => void;
+}
+
+const BitActions: FC<Props> = ({bitCount, setBitCount}) => {
   return (
     <>
       <div className="bit-actions">
