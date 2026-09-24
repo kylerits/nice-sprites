@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 
-import 'react-toastify/dist/ReactToastify.css'
 import {uniqueNamesGenerator, Config, adjectives, colors, animals} from 'unique-names-generator'
 
 interface Props {

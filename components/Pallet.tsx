@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface Props {
   currentColor: string;
@@ -14,6 +14,7 @@ const Pallet: FC<Props> = ({currentColor, setCurrentColor, currentPixels, setCur
     color: string;
   }
   const [colorArr, setColorArr] = useState<Provider[]>([]);
+  const [prevPixels, setPrevPixels] = useState(currentPixels);
 
   const addColors = () => {
     const currentColorArr: any[] = [...colorArr];
@@ -36,9 +37,11 @@ const Pallet: FC<Props> = ({currentColor, setCurrentColor, currentPixels, setCur
     setColorArr([]);
   }
 
-  useEffect(() => {
+  // Pick up new colors whenever the painted pixels change
+  if (currentPixels !== prevPixels) {
+    setPrevPixels(currentPixels);
     addColors();
-  }, [currentPixels]);
+  }
 
   return (
     <div className="pallet relative max-h-full overflow-scroll bg-gray-50 rounded-lg py-2 px-3 min-w-[100px]">
