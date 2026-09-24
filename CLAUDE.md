@@ -17,6 +17,8 @@ Yarn is the package manager (`yarn.lock` is committed).
 
 There is no test suite.
 
+Next 11's webpack uses MD4 hashing, which fails on Node 17+ with `ERR_OSSL_EVP_UNSUPPORTED`. Use Node 16, or prefix `dev` and `build` with `NODE_OPTIONS=--openssl-legacy-provider`. The Vercel project is pinned to Node 14.x in its dashboard settings, and Vercel no longer supports that version, so preview deployments fail before they start.
+
 ## Architecture
 
 The whole app lives in `pages/index.tsx`, which composes the components in `components/`. `pages/api/hello.ts` is leftover boilerplate from create-next-app.
