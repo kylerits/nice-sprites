@@ -1,46 +1,43 @@
-import { FC } from 'react';
+import { FC, Dispatch, SetStateAction } from 'react';
 import {motion} from 'framer-motion';
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import Pixel from "./Pixel";
 import GridActions from './GridActions';
 
 interface Props {
   bitCount: number;
   currentColor: string;
-  currentPixels: string[];
-  setCurrentPixels: (pixels: string[]) => void;
+  currentPixels: any[];
+  setCurrentPixels: Dispatch<SetStateAction<any[]>>;
 }
 
 const SpriteGrid: FC<Props> = ({bitCount, currentColor, currentPixels, setCurrentPixels}) => {
   // const [currentPixels, setCurrentPixels] = useState([]);
-  const pixels = useRef<any[]>(new Array());
+  const pixels = useRef(new Map<string, any>());
 
   
   const addPixel = (x: number, y: number) => {
-    const newPixels: any[] = [...currentPixels]
-    newPixels.push({
-      key: `${x}-${y}`,
-      color: currentColor,
-      x: x,
-      y: y
-    });
-    setCurrentPixels(newPixels);
+    const key = `${x}-${y}`;
+    // Painting with the eraser removes the pixel instead of recording an empty color
+    if (currentColor === '') {
+      removePixel(x, y);
+      return;
+    }
+    // Replace any existing entry so repainting a pixel doesn't duplicate it
+    setCurrentPixels(prevPixels => [
+      ...prevPixels.filter((pixel: any) => pixel.key !== key),
+      { key, color: currentColor, x, y },
+    ]);
   }
 
   const removePixel = (x: number, y: number) => {
-    const newPixels = [...currentPixels];
-    const index = newPixels.findIndex((pixel: any) => pixel.key === `${x}-${y}`);
-    newPixels.splice(index, 1);
-    setCurrentPixels(newPixels);
+    const key = `${x}-${y}`;
+    setCurrentPixels(prevPixels => prevPixels.filter((pixel: any) => pixel.key !== key));
   }
 
   const clearColors = () => {
     // console.log(`Clearing all colors`);
-    pixels.current.map(pixel => {
-      if(pixel) {
-        pixel.handleClear();
-      }
-    });
+    pixels.current.forEach(pixel => pixel.handleClear());
     setCurrentPixels([]);
   }
 
@@ -85,7 +82,11 @@ const SpriteGrid: FC<Props> = ({bitCount, currentColor, currentPixels, setCurren
               return (
                 <Pixel
                   //@ts-ignore
-                  ref={(element: any) => pixels.current.push(element)}
+                  ref={(element: any) => {
+                    // Keyed by position so re-renders replace entries instead of appending
+                    pixels.current.set(`${row}-${col}`, element);
+                    return () => { pixels.current.delete(`${row}-${col}`); };
+                  }}
                   key={`${row}-${col}`}
                   currentColor={currentColor}
                   x={col}

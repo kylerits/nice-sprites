@@ -27,9 +27,9 @@ The whole app lives in `pages/index.tsx`, which composes the components in `comp
 
 **Painted pixels are stored in two places, and both must stay in sync:**
 1. Each `Pixel` (`components/Pixel.tsx`) keeps its own displayed `color` in local state. It handles click (toggle) and drag painting through `onPointerEnter` with `e.buttons > 0`.
-2. `currentPixels` in the page is an array of `{ key: "x-y", color, x, y }` objects. `SpriteGrid` updates it through the `addPixel` and `removePixel` callbacks it passes to each `Pixel`. The props are typed `string[]`, but the elements are actually these objects, so the code relies on `any` casts.
+2. `currentPixels` in the page is an array of `{ key: "x-y", color, x, y }` objects. `SpriteGrid` updates it through the `addPixel` and `removePixel` callbacks it passes to each `Pixel`. Both use functional state updates and match entries by `key`, so there is at most one entry per cell. Painting with the eraser (`currentColor === ''`) removes the entry. The element type is `any[]` (and still `string[]` in `Pallet`'s props), so the code relies on `any` casts.
 
-`currentPixels` is the source of truth for export (`GridActions` builds the SVG from it) and for the palette. The on-screen colors come from each `Pixel`'s local state. To clear the grid, `SpriteGrid` keeps an array of refs to the `Pixel`s and calls the `handleClear()` method each one exposes through `useImperativeHandle`. It then empties `currentPixels`.
+`currentPixels` is the source of truth for export (`GridActions` builds the SVG from it) and for the palette. The on-screen colors come from each `Pixel`'s local state. To clear the grid, `SpriteGrid` keeps a `Map` of `Pixel` refs keyed by `"row-col"`. Each ref callback returns a cleanup function (React 19) that deletes its entry. It calls the `handleClear()` method each one exposes through `useImperativeHandle`. It then empties `currentPixels`.
 
 **Components:**
 - `SpriteGrid`: draws the dashed grid lines as two overlaid CSS grids, then the `bitCount × bitCount` grid of `Pixel`s. It shows `GridActions` once any pixel is painted.
